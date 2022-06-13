@@ -112,7 +112,7 @@
       <!-- Search from - Messaginig btn -->
       <div class="flex flex-col md:flex-row items-center w-full mt-6 lg:mt-10">
         <!-- Search -->
-         <input type="text" [(ngModel)]="search" (change)="searchChange()" placeholder="Search or type mail" class="relative search md:mr-24 py-3 outline-none border focus:border-blue-400 w-full rounded-full pl-8">
+         <input type="text" [(ngModel)]="search" (keyup)="searchChange()" placeholder="Search or type mail" class="relative search md:mr-24 py-3 outline-none border focus:border-blue-400 w-full rounded-full pl-8">
 
         <!-- Start messaginig -->
         <button (click)="modalOpen = !modalOpen"

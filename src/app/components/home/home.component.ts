@@ -17,5 +17,8 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  async signIn() {
+    await this.mailService.nearService.handleSignIn();
+  }
 
 }

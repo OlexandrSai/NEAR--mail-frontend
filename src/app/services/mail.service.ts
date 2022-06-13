@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NearService } from "./near.service";
 import { format, fromUnixTime } from "date-fns";
+import { ToastrService } from "ngx-toastr";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class MailService {
   public isLoading = false;
   public err: any = null;
 
-  constructor(public nearService: NearService) {
+  constructor(public nearService: NearService, private toastr: ToastrService) {
   }
 
   async loadMessages() {
@@ -21,7 +22,6 @@ export class MailService {
     } catch (e) {
       this.err = e;
       console.log(e);
-      console.log('error');
     } finally {
       this.isLoading = false;
     }
@@ -33,8 +33,9 @@ export class MailService {
     try {
       await this.nearService.sendMessage({ target_account_id, message });
       this.myMessages = await this.nearService.getMessages(this.nearService.accountId);
-    } catch (e) {
-      console.log(e);
+    } catch (e: any) {
+      let message = this.err = e?.kind?.ExecutionError;
+      this.toastr.error(message.slice(0, message.match(', filename').index));
     } finally {
       this.isLoading = false;
     }
